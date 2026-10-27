@@ -1,0 +1,33 @@
+/* components/Dashboard/RecentActivity.css */
+.recent-activity {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.activity-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.activity-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-action {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.activity-user {
+  font-size: 12px;
+  color: #7f8c8d;
+}
+
+.activity-time {
+  font-size: 12px;
+  color: #95a5a6;
+}

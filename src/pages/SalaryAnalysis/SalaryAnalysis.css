@@ -1,0 +1,231 @@
+/* 薪酬分析页面样式 */
+.salary-analysis {
+  padding: 24px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 页面标题区域 */
+.page-header {
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.page-header h2 {
+  color: #1f2329;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.page-header h2::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  background-color: #1890ff;
+  margin-right: 8px;
+  border-radius: 2px;
+}
+
+.page-header p {
+  color: #6c757d;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 分析容器布局 */
+.analysis-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+}
+
+/* 左侧筛选区域 */
+.analysis-filters {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  height: fit-content;
+}
+
+/* 右侧结果区域 */
+.analysis-results {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 分析区域分隔 */
+.analysis-section {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.analysis-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* 加载状态 */
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  color: #6c757d;
+  font-size: 16px;
+}
+
+.loading-indicator i {
+  margin-right: 12px;
+  font-size: 24px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 空状态 */
+.empty-state {
+  padding: 60px 0;
+  text-align: center;
+  color: #6c757d;
+}
+
+.empty-state p {
+  margin-bottom: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.empty-state p:first-child {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+/* 报表标题样式 */
+.analysis-section h3 {
+  color: #1f2329;
+  font-size: 18px;
+  margin: 0 0 16px 0;
+  padding-left: 8px;
+  border-left: 3px solid #1890ff;
+  font-weight: 500;
+}
+
+/* 表格样式优化 */
+.ant-table {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #f7f8fa;
+  color: #4e5969;
+  font-weight: 500;
+  font-size: 14px;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 12px 16px;
+}
+
+.ant-table-tbody > tr > td {
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background-color: #fafafa;
+}
+
+/* 展开行样式 */
+.ant-table-expanded-row > td {
+  background-color: #fbfbfb !important;
+}
+
+.ant-table-expanded-row .ant-table-row-indent-indent {
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+}
+
+/* 筛选器样式补充 */
+.salary-filter .period-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #d9d9d9;
+  font-size: 14px;
+  margin-bottom: 16px;
+  transition: border-color 0.2s;
+}
+
+.salary-filter .period-select:focus {
+  border-color: #1890ff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.salary-filter .analysis-btn {
+  width: 100%;
+  padding: 10px 0;
+  background-color: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.salary-filter .analysis-btn:hover {
+  background-color: #096dd9;
+}
+
+.salary-filter .analysis-btn:disabled {
+  background-color: #8cc5ff;
+  cursor: not-allowed;
+}
+
+/* 响应式调整 */
+@media (max-width: 992px) {
+  .analysis-container {
+    grid-template-columns: 1fr;
+  }
+
+  .analysis-filters {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .salary-analysis {
+    padding: 16px;
+  }
+
+  .page-header h2 {
+    font-size: 18px;
+  }
+
+  .analysis-results {
+    padding: 16px;
+  }
+
+  .analysis-section {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+  }
+}

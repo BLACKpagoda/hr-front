@@ -1,0 +1,24 @@
+/* BoardCard.css - 看板卡片样式 */
+.board-card {
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.board-card .ant-card-head {
+  min-height: 44px;
+  padding: 0 16px;
+}
+
+.board-card .ant-card-head-title {
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.board-card-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}

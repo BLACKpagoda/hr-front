@@ -1,0 +1,108 @@
+.data-sync-container {
+  padding: 24px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.sync-card {
+  margin-top: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.sync-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 12px 0;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sync-action {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #e8e8e8;
+}
+
+.sync-progress {
+  margin-top: 16px;
+}
+
+.sync-log-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.sync-log-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.log-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.log-item:last-child {
+  border-bottom: none;
+}
+
+.log-time {
+  min-width: 80px;
+  margin-right: 12px;
+}
+
+.log-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.log-success .log-content {
+  color: #52c41a;
+}
+
+.log-error .log-content {
+  color: #f5222d;
+}
+
+.log-info .log-content {
+  color: #1890ff;
+}
+
+.empty-log {
+  text-align: center;
+  padding: 40px 0;
+  color: #ccc;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .data-sync-container {
+    padding: 16px;
+  }
+
+  .setting-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .setting-item .ant-select,
+  .setting-item .ant-picker {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  .sync-log-list {
+    max-height: 300px;
+  }
+}

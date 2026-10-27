@@ -1,0 +1,149 @@
+/* 全局容器 */
+.employee-management {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* 页面头部 */
+.page-header {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.page-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* 错误提示 */
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  gap: 10px;
+}
+
+.error-text {
+  color: #f56c6c;
+  font-size: 14px;
+}
+
+.reload-btn {
+  padding: 6px 12px;
+  border: 1px solid #409eff;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #409eff;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.reload-btn:hover {
+  background-color: #409eff;
+  color: #fff;
+}
+
+/* 空数据提示 */
+.empty-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  color: #999;
+  font-size: 14px;
+}
+
+/* 表格容器（横向滚动） */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* 全字段表格 */
+.employee-full-table {
+  width: 100%;
+  min-width: 1200px; /* 最小宽度，保证字段不挤压 */
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12px;
+}
+
+.employee-full-table th {
+  background-color: #f8f9fa;
+  color: #333;
+  font-weight: 600;
+  padding: 12px 8px;
+  border: 1px solid #eee;
+  white-space: nowrap; /* 表头不换行 */
+  position: sticky;
+  top: 0; /* 表头固定 */
+  z-index: 10;
+}
+
+.employee-full-table td {
+  padding: 10px 8px;
+  border: 1px solid #eee;
+  color: #666;
+  word-break: break-all; /* 长文本换行 */
+  vertical-align: top;
+}
+
+.employee-full-table tr:hover {
+  background-color: #f5f7fa;
+}
+
+/* 分页控件 */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.pagination-btn {
+  padding: 6px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #666;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.pagination-btn:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+  border-color: #eee;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  border-color: #409eff;
+  color: #409eff;
+}
+
+.page-info {
+  font-size: 12px;
+  color: #666;
+}

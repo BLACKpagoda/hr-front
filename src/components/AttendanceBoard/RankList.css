@@ -1,0 +1,28 @@
+/* RankList.css - 排名列表样式 */
+.rank-list .rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8c8c8c;
+  background: #f0f0f0;
+}
+
+.rank-list .rank-badge.rank-1 {
+  background: #ffd700;
+  color: #fff;
+}
+
+.rank-list .rank-badge.rank-2 {
+  background: #c0c0c0;
+  color: #fff;
+}
+
+.rank-list .rank-badge.rank-3 {
+  background: #cd7f32;
+  color: #fff;
+}
