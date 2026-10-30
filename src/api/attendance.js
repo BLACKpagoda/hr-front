@@ -3,9 +3,13 @@
 import request from '../utils/request';
 import * as mockBoard from '../mock/attendanceBoardMock';
 
-// 考勤看板 Mock 开关：默认开启（后端 /attendance/board/* 未实现前用于演示）
-// 切换真实后端：在 .env 中设置 REACT_APP_USE_MOCK=false 后重启
-export const USE_MOCK = process.env.REACT_APP_USE_MOCK !== 'false';
+// 考勤看板 Mock 开关：默认关闭（走真实后端）
+// 仅当显式设置 REACT_APP_USE_MOCK=true 时才启用假数据，例如：REACT_APP_USE_MOCK=true npm start
+//
+// 注意：原实现是 `!== 'false'`（默认开启）。CRA 在 `npm run build` 时只加载
+// .env + .env.production，而这两个文件都没有定义该变量，导致生产构建静默返回
+// mock 假数据。改为显式白名单后，任何环境漏配都默认走真实接口，不会静默造假。
+export const USE_MOCK = process.env.REACT_APP_USE_MOCK === 'true';
 
 /**
  * 餐补分析考勤导入（解析餐补，存入 employee_attendance_summary 表）

@@ -27,31 +27,30 @@ npm start          # http://localhost:3000，热更新
 npm run build      # 产物在 build/（已 gitignore）
 ```
 
-环境变量（CRA 约定 `REACT_APP_*` 前缀，`.env*` 全部**不入库**）：
+环境变量（CRA 约定 `REACT_APP_*` 前缀，`.env*` 全部**不入库**，模板见 [.env.example](.env.example)）：
 
 | 文件 | 变量 | 当前值 |
 |------|------|--------|
-| `.env` | `REACT_APP_API_BASE_URL` | `http://localhost:3001` |
-| `.env` | `REACT_APP_USE_MOCK` | **未定义** |
+| `.env` | `REACT_APP_API_BASE_URL` / `REACT_APP_USE_MOCK` | `http://localhost:3001` / `false` |
 | `.env.development` | `REACT_APP_API_BASE_URL` / `REACT_APP_USE_MOCK` | `http://localhost:3001` / `false` |
-| `.env.production` | `REACT_APP_API_BASE_URL` | `http://localhost:3001`（占位，部署前必须改成真实域名） |
-| `.env.production` | `REACT_APP_USE_MOCK` | **未定义** ⚠️ |
+| `.env.production` | `REACT_APP_API_BASE_URL` / `REACT_APP_USE_MOCK` | `http://localhost:3001`（**占位，部署前必须改成真实域名**）/ `false` |
 
-### ⚠️ Mock 开关的默认值是「开」
+### Mock 开关（已改为默认关闭）
 
-[src/api/attendance.js](src/api/attendance.js) 第 8 行：
+[src/api/attendance.js](src/api/attendance.js) 第 6 行：
 
 ```js
-export const USE_MOCK = process.env.REACT_APP_USE_MOCK !== 'false';
+export const USE_MOCK = process.env.REACT_APP_USE_MOCK === 'true';
 ```
 
-即**只要环境里没写 `REACT_APP_USE_MOCK=false`，考勤看板的 17 个接口就全部返回 `src/mock/attendanceBoardMock.js` 里的假数据**。
+**只有显式设置 `REACT_APP_USE_MOCK=true` 才启用假数据**，否则一律走真实后端。
 
-`.env` 和 `.env.production` 都没有定义这个变量，而 `npm run build` 只加载 `.env` + `.env.production`（**不加载 `.env.development`**）→ **当前生产构建的看板显示的是 mock 假数据**。
+历史坑（2026-10-30 修复）：原实现是 `!== 'false'`（默认开启），而 `.env` 与 `.env.production`
+都没定义该变量，`npm run build` 又不加载 `.env.development`，导致**生产构建静默返回 mock 假数据**。
+改成显式白名单后，任何环境漏配都默认走真实接口。
 
-修法（二选一，改完必须重新 build）：
-- 在 `.env.production` 加 `REACT_APP_USE_MOCK=false`；或
-- 把判定改成显式白名单：`process.env.REACT_APP_USE_MOCK === 'true'`（默认关闭，更安全）
+临时看 mock 效果：`REACT_APP_USE_MOCK=true npm start`（Windows PowerShell 用
+`$env:REACT_APP_USE_MOCK='true'; npm start`）。
 
 ## 目录结构
 
@@ -68,12 +67,10 @@ src/
 │   ├── Dashboard/        StatsCard、RecentActivity
 │   ├── Import/           EmployeeImport / AttendanceImport / SalaryImport
 │   ├── Layout/           Header / Sidebar / MainContent
-│   ├── SalaryAnalysis/   SalaryFilter / SalaryReport / SalaryTotalReport
-│   └── Sync/             ⚠️ 空目录，可删
+│   └── SalaryAnalysis/   SalaryFilter / SalaryReport / SalaryTotalReport
 ├── pages/                页面级组件，与路由一一对应
 ├── utils/request.js      ★ axios 实例 + 拦截器
-├── mock/                 attendanceBoardMock.js（仅 USE_MOCK 时用）
-├── model/                ⚠️ 空目录，可删
+├── mock/                 attendanceBoardMock.js（仅 REACT_APP_USE_MOCK=true 时用）
 ├── App.jsx               根组件 + 路由表
 ├── index.js              入口
 └── reportWebVitals.js    CRA 默认文件
@@ -128,15 +125,15 @@ src/
 
 | # | 问题 | 影响 |
 |---|------|------|
-| 1 | **生产构建 USE_MOCK 默认开启**（见上） | 高：看板线上显示假数据 |
-| 2 | `.env.production` 的 `REACT_APP_API_BASE_URL` 还是 `localhost:3001` | 高：部署到服务器后接口全打不通 |
-| 3 | `react-scripts 5` 自 2022 年起停止维护，官方已不推荐，与 React 19 属边缘组合 | 中：迟早迁 Vite |
-| 4 | 打包体积 **791 kB（gzip）**，无路由级 code splitting，antd + echarts 全量进主包 | 中：首屏慢 |
-| 5 | `moment` 与 `dayjs` 共存 | 低：可去 moment 减体积 |
-| 6 | 无登录页，`request.js` 里的 token 注入逻辑还在但无来源 | 中：鉴权未闭环 |
-| 7 | `src/components/Sync/`、`src/model/` 是空目录 | 低：可删 |
-| 8 | [README.md](README.md) 还是 CRA 默认模板，没写项目说明 | 低：可换成真文档 |
-| 9 | `.env` 里 `REACT_APP_USE_MOCK` 缺失，导致 `npm start` 之外的场景默认 mock | 高：与 #1 同源 |
+| 1 | `.env.production` 的 `REACT_APP_API_BASE_URL` 还是 `localhost:3001` 占位值 | 高：部署到服务器后接口全打不通，**部署前必须改** |
+| 2 | `react-scripts 5` 自 2022 年起停止维护，官方已不推荐，与 React 19 属边缘组合 | 中：迟早迁 Vite |
+| 3 | 打包体积 **791 kB（gzip）**，无路由级 code splitting，antd + echarts 全量进主包 | 中：首屏慢 |
+| 4 | `moment` 与 `dayjs` 共存 | 低：可去 moment 减体积 |
+| 5 | 无登录页，`request.js` 里的 token 注入逻辑还在但无来源 | 中：鉴权未闭环 |
+| 6 | caniuse-lite 数据过期 14 个月，构建时 Browserslist 告警 | 低：`npx update-browserslist-db@latest` |
+
+> 已修复（2026-10-30）：生产构建因 `USE_MOCK` 默认开启而返回假数据；`.env*` 缺模板（已加 `.env.example`）；
+> 空目录 `src/components/Sync`、`src/model` 已删；README 已从 CRA 模板换成项目说明。
 
 ## 验证（改完必须跑）
 

@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# hr-front — HR 人事数据前端
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React 19 + Ant Design 5 + ECharts 的 HR 数据管理界面，对接后端 [hrdb](../hrdb)（端口 3001）。
 
-## Available Scripts
+## 快速开始
 
-In the project directory, you can run:
+```bash
+npm install
 
-### `npm start`
+# 创建环境变量（.env* 不入库，参照模板填写）
+cp .env.example .env
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+npm start        # http://localhost:3000
+npm run build    # 产物在 build/
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 环境变量
 
-### `npm test`
+见 [.env.example](.env.example)。两个关键项：
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| 变量 | 说明 |
+|------|------|
+| `REACT_APP_API_BASE_URL` | 后端地址，默认 `http://localhost:3001` |
+| `REACT_APP_USE_MOCK` | 考勤看板假数据开关，**只有显式写 `true` 才启用**，生产必须是 `false` |
 
-### `npm run build`
+> 生产构建只加载 `.env` + `.env.production`（不加载 `.env.development`）。部署前务必确认
+> `.env.production` 里的 `REACT_APP_API_BASE_URL` 已改成真实域名，否则接口全部打不通。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 功能页面
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| 路由 | 功能 |
+|------|------|
+| `/` | 仪表盘 |
+| `/employees` | 员工列表 |
+| `/attendance` | 考勤餐补分析导入 |
+| `/import` | 数据导入（员工 / 考勤 / 薪酬） |
+| `/sync` | 钉钉考勤同步（异步任务 + 进度轮询） |
+| `/attendance-board` | 考勤看板（总览 / 部门 / 异常 / 请假加班 / 人员明细） |
+| `/salary-analysis` | 薪酬分析 |
+| `/fanruan` | 帆软指标导入 |
+| `/settings` | 系统设置 |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 开发说明
 
-### `npm run eject`
+- **所有接口调用必须走 `src/api/`**，不要 import `request` 或手写 URL —— 见 [src/utils/request.js](src/utils/request.js) 的拦截器约定
+- 新增页面：`src/pages/<Name>/` + `App.jsx` 加一条 `<Route>` + `src/api/` 加对应方法
+- 样式用普通 CSS 文件（每组件同名 `.css`），无 CSS Modules / Tailwind
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+详细约定、已知问题、分支工作流见 [AGENTS.md](AGENTS.md)；前后端接口全表见 [API_CONTRACT.md](API_CONTRACT.md)。
